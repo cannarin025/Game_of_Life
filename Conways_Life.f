@@ -23,7 +23,7 @@ reset_array
             conway_array I + C@ 8 .R loop
     CR 
 ;
-
+ 
 : array_@ array_x_dim * + conway_array swap + C@ ; { takes input: x, y where x and y go from 0 - n-1}
 
 : array_! array_x_dim * + conway_array swap + C! ; { takes input: value, x, y where x and y go from 0 - n-1}
