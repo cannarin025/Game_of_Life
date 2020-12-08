@@ -152,6 +152,19 @@ bmp-size   @ 3 * 54 +       bmp-length !       { Find length of bmp in chars inc
   3 +loop
   ;
 
+: Update_BMP  ( addr -- )          { Set bmp starting at addr to random green pixels }
+  dup dup 2 + @ + swap 54 + do
+  { loop for each pixel of array}
+  000                                    { Red   RGB value                                 }
+  000                                    { Green RGB value                                 }
+  000                                    { Blue  RGB value                                 }
+  { end loop for each pixel of array. keep this order of colours on stack}                                   
+  i  tuck c!
+  1+ tuck c!
+  1+      c!      
+  3 +loop
+  ;
+
 { ---------------------- Word to display a bmp using Windows API Calls ------------------  }
 
 
