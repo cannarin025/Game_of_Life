@@ -1,24 +1,27 @@
 \ : quit_sf 101719502 TYPE ;
 
 { array code}
-20 constant array_x_dim
-20 constant array_y_dim
+32 constant array_x_dim
+32 constant array_y_dim
 
 array_x_dim array_y_dim * constant array_size
 
-create conway_array array_size allocate drop drop
+\ create conway_array array_size allocate drop drop
 
-\ : reset_array { fill does not work for now. Will write version of this without using fill}
-\     conway_array array_size 0 fill 
-\  ;
+create conway_array array_size allot
+
+: reset_array { fill does not work for now. Will write version of this without using fill}
+    conway_array array_size 0 fill 
+ ;
 
 : array_@ array_x_dim * + conway_array swap + C@ ; { takes input: x, y where x and y go from 0 - n-1}
 
 : array_! array_x_dim * + conway_array swap + C! ; { takes input: value, x, y where x and y go from 0 - n-1}
 
 \ : reset_array
-\     array_size 1 - 0 do
-\         0 conway_array I + c!
+\     array_size 0 do
+\         I .
+\         \ 0 conway_array I + c!
 \     loop
 \ ;
 
@@ -82,7 +85,7 @@ variable alive_num      \ value a cell must have to be considered alive
     endcase
 ;
 
-\ reset_array
+reset_array
 show_array
 1 1 2 array_!
 1 1 1 array_!

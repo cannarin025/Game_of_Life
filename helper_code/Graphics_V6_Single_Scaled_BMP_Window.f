@@ -47,9 +47,9 @@ variable bmp-y-start    { Initial y position of upper left corner               
 
 variable bmp-window-handle  { Variable to store the handle used to ID display window     }
 
-100 bmp-x-size !                              { Set x size of bmp in pixels             }
+array_x_dim bmp-x-size !                              { Set x size of bmp in pixels             }
 
-100 bmp-y-size !                              { Set y size of bmp in pixels             }
+array_y_dim bmp-y-size !                              { Set y size of bmp in pixels             }
 
 bmp-x-size @ 4 / 1 max 4 *  bmp-x-size !       { Trim x-size to integer product of 4     }
 
@@ -142,7 +142,9 @@ bmp-size   @ 3 * 54 +       bmp-length !       { Find length of bmp in chars inc
 
 
 : Random-bmp-Blue  ( addr -- )            { Set bmp starting at addr to random blue pixels }
+  \ dup
   dup dup 2 + @ + swap 54 + do
+  I .
   000                                     { Red   RGB value                                }
   000                                     { Green RGB value                                }
   2 RND 255 *                             { Blue  RGB value (will randomly go from 0-255 to represent "on" or "off", revert to 255 RND to get random values between 0-255 instead of 0 or 255) }
@@ -152,16 +154,31 @@ bmp-size   @ 3 * 54 +       bmp-length !       { Find length of bmp in chars inc
   3 +loop
   ;
 
-: Update_BMP  ( addr -- )          { Set bmp starting at addr to random green pixels }
+: Update_BMP  ( addr -- )
+
   dup dup 2 + @ + swap 54 + do
-  { loop for each pixel of array}
-  000                                    { Red   RGB value                                 }
-  000                                    { Green RGB value                                 }
-  000                                    { Blue  RGB value                                 }
-  { end loop for each pixel of array. keep this order of colours on stack}                                   
-  i  tuck c!
-  1+ tuck c!
-  1+      c!      
+
+    { converts BMP indices to conway_array indices}
+    I bmp-address @ 54 + - 3 /
+    conway_array + c@ alive_num @ - 0= 
+
+    if
+      { loop for each pixel of array}
+      000                                    { Red   RGB value                                 }
+      000                                    { Green RGB value                                 }
+      255                                    { Blue  RGB value                                 }
+
+    else
+      000                                    { Red   RGB value                                 }
+      000                                    { Green RGB value                                 }
+      000                                    { Blue  RGB value                                 }
+
+    then
+
+    { end loop for each pixel of array. keep this order of colours on stack}                                   
+    i  tuck c!
+    1+ tuck c!
+    1+      c!      
   3 +loop
   ;
 
@@ -334,13 +351,28 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
   until 
   ;
 
+: display_life                        { Draw bmp to screen at variable pixel size       }
+  cr ." Starting stretch to window test " 
+  cr
+  New-bmp-Window-stretch              { Create new "stretch" window                     }
+  bmp-window-handle !                 { Store window handle                             }
+  begin                               { Begin update / display loop                     }
+  bmp-address @ Update_BMP            { Copy conway_array as BMP                        }
+  bmp-address @ bmp-to-screen-stretch { Stretch .bmp to display window                  }
+  100 ms                              { Delay for viewing ease, reduce for higher speed }
+  key?                                { Break test loop on key press                    }
+  until 
+  ;
+
 
 { ----------------------------- Run Test Output Routines -------------------------------- }
 
 
 \ go-copy  { Demo copy to screen routine }
 
-   go-stretch  { Demo stretch to screen routine }
+\ conway_array 0 + c@
+\ go-stretch  { Demo stretch to screen routine }
 
+ display_life
 
 
