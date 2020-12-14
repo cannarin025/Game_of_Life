@@ -1,8 +1,8 @@
 \ : quit_sf 101719502 TYPE ;
 
 { array code}
-200 constant array_x_dim
-200 constant array_y_dim
+12 constant array_x_dim
+12 constant array_y_dim
 
 array_x_dim array_y_dim * constant array_size
 
@@ -27,6 +27,7 @@ create update_array array_size allot
 : update_array_@ array_x_dim * + update_array swap + C@ ; { takes input: x, y where x and y go from 0 - n-1}
 
 : update_array_! array_x_dim * + update_array swap + C! ; { takes input: value, x, y where x and y go from 0 - n-1}
+
 
 \ : reset_array
 \     array_size 0 do
@@ -67,8 +68,10 @@ variable alive_num      \ value a cell must have to be considered alive
     2 -1 do         \ y loop
         2 -1 do     \ x loop
             I 2 * J + 0=  \ ignores central "starting" point
-            if    
+            if
+            \ ." pass" cr    
             else
+                I . ." y " J . ." x "
                 { checking the neighbor is in grid}
                 swap dup J + 0 >= 
                 swap dup J + array_x_dim 1 - <= 
@@ -81,14 +84,20 @@ variable alive_num      \ value a cell must have to be considered alive
                 if 
                     swap dup rot dup rot swap   \ copies start coords for later use
                     swap J + swap I +   \ gets indices of adjacent cells
+                    \ dup . swap dup . swap ." indices" cr \ displays indices
                     array_@             \ gets value of adjacent cells. (checks cell at (x+n, y+n) for n = -1,0,1)
                     dup alive_num @ - 0=            \ checks number in cell is equal to alive num to check if adjacent cell is living
-                    if 
+                    if
+                        \ dup .    
                         neighbor_sum @ + neighbor_sum ! \ adds value to neighbor_sum
+                        \ ." value equal to alive_num" cr cr
+                        ." valid neighbor" cr
                     else
+                        ." value not equal to alive_num" cr
                         drop
                     then
                 else
+                   ." not in grid" cr cr
                 then
             then
         loop      \ ensures that n=0 is skipped to avoid checking "current" cell
@@ -98,10 +107,11 @@ variable alive_num      \ value a cell must have to be considered alive
 ;
 
 : apply_rule { applies rules on cell (x,y) using value of neighbor_sum}
+    \ swap dup . ." x " swap dup . ." y" cr
     neighbor_sum @
     case
-        0 of 0 rot rot update_array_! endof { takes x,y,value --> rotates to value x,y and moves to update_array}
-        1 of 0 rot rot update_array_! endof
+        0 of 0 rot rot update_array_! show_update_array cr cr endof { takes x,y,value --> rotates to value x,y and moves to update_array}
+        1 of 0 rot rot update_array_! show_update_array cr cr endof
         2 of 
             swap dup rot dup rot swap array_@ alive_num @ - 0= 
             if 
@@ -110,13 +120,16 @@ variable alive_num      \ value a cell must have to be considered alive
                 0 rot rot update_array_!
             then
         endof
-        3 of 1 rot rot update_array_! endof
-        4 of 0 rot rot update_array_! endof
-        5 of 0 rot rot update_array_! endof
-        6 of 0 rot rot update_array_! endof
-        7 of 0 rot rot update_array_! endof
-        8 of 0 rot rot update_array_! endof
+        3 of 1 rot rot update_array_! show_update_array cr cr endof
+        4 of 0 rot rot update_array_! show_update_array cr cr endof
+        5 of 0 rot rot update_array_! show_update_array cr cr endof
+        6 of 0 rot rot update_array_! show_update_array cr cr endof
+        7 of 0 rot rot update_array_! show_update_array cr cr endof
+        8 of 0 rot rot update_array_! show_update_array cr cr endof
+        \ drop DUP OF ."  no living neighbors found" endof
     endcase
+    neighbor_sum @ . ." living neighbors found"
+    cr cr
 ;
 
 : update_game 
@@ -126,10 +139,14 @@ variable alive_num      \ value a cell must have to be considered alive
 
     array_y_dim 0 do
         array_x_dim 0 do
+            I . ." y " J . ." x" cr
             J I check_neighbors 
             J I apply_rule
+            cr cr cr cr cr cr cr 
         loop
     loop
+
+    show_update_array
 
     { reads update array and updates conway_array}
     array_y_dim 0 do
@@ -140,37 +157,26 @@ variable alive_num      \ value a cell must have to be considered alive
     loop
 ;
 
-: live 
-    alive_num @ rot rot array_!
-;
-
 { shapes}
-: box \ box shape with bottom left corner at x,y
-1 pick 1 pick live
-1 pick 1 pick 1 + live
-1 pick 1 + 1 pick live
-1 pick 1 + 1 pick 1 + live
-;
-
 : boat \ still life with bottom left corner at x,y
-1 pick 1 + 1 pick live
-1 pick 1 pick 1 + live
-1 pick 1 pick 2 + live
-1 pick 2 + 1 pick 1 + live
-1 pick 1 + 1 pick 2 + live
+1 1 pick 1 + 1 pick array_!
+1 1 pick 1 pick 1 + array_!
+1 1 pick 1 pick 2 + array_!
+1 1 pick 2 + 1 pick 1 + array_!
+1 1 pick 1 + 1 pick 2 + array_!
 drop drop 
 ;
 
 : lwss \ lightweight spaceship, bottom left corner @ x,y
-1 pick 1 pick live
-1 pick 3 + 1 pick live
-1 pick 1 pick 2 + live
-1 pick 1 + 1 pick 3 + live
-1 pick 2 + 1 pick 3 + live
-1 pick 3 + 1 pick 3 + live
-1 pick 4 + 1 pick 3 + live
-1 pick 4 + 1 pick 2 + live
-1 pick 4 + 1 pick 1 + live
+1 1 pick 1 pick array_!
+1 1 pick 3 + 1 pick array_!
+1 1 pick 1 pick 2 + array_!
+1 1 pick 1 + 1 pick 3 + array_!
+1 1 pick 2 + 1 pick 3 + array_!
+1 1 pick 3 + 1 pick 3 + array_!
+1 1 pick 4 + 1 pick 3 + array_!
+1 1 pick 4 + 1 pick 2 + array_!
+1 1 pick 4 + 1 pick 1 + array_!
 drop drop 
 ; 
 

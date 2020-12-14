@@ -159,7 +159,7 @@ bmp-size   @ 3 * 54 +       bmp-length !       { Find length of bmp in chars inc
   dup dup 2 + @ + swap 54 + do
 
     { converts BMP indices to conway_array indices}
-    I bmp-address @ 54 + - 3 /
+    I bmp-address @ 54 + - 3 / 
     conway_array + c@ alive_num @ - 0= 
 
     if
@@ -351,15 +351,23 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
   until 
   ;
 
+: init_life
+  ." Creating life stretch BMP window"
+  New-bmp-Window-stretch
+  bmp-window-handle !
+  reset_array
+;
+
 : display_life                        { Draw bmp to screen at variable pixel size       }
   cr ." Starting stretch to window test " 
   cr
-  New-bmp-Window-stretch              { Create new "stretch" window                     }
-  bmp-window-handle !                 { Store window handle                             }
+  \ bmp-window-handle !                 { Store window handle                             }
+  \ 1 1 lwss                            { initial conditions}
   begin                               { Begin update / display loop                     }
   bmp-address @ Update_BMP            { Copy conway_array as BMP                        }
   bmp-address @ bmp-to-screen-stretch { Stretch .bmp to display window                  }
   100 ms                              { Delay for viewing ease, reduce for higher speed }
+  update_game
   key?                                { Break test loop on key press                    }
   until 
   ;
@@ -367,12 +375,11 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
 
 { ----------------------------- Run Test Output Routines -------------------------------- }
 
+init_life
 
 \ go-copy  { Demo copy to screen routine }
 
 \ conway_array 0 + c@
 \ go-stretch  { Demo stretch to screen routine }
-
- display_life
 
 
