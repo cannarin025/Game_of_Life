@@ -71,6 +71,7 @@ variable alive_num      \ value a cell must have to be considered alive
             if
             \ ." pass" cr    
             else
+                I . ." y " J . ." x "
                 { checking the neighbor is in grid}
                 swap dup J + 0 >= 
                 swap dup J + array_x_dim 1 - <= 
@@ -90,12 +91,13 @@ variable alive_num      \ value a cell must have to be considered alive
                         \ dup .    
                         neighbor_sum @ + neighbor_sum ! \ adds value to neighbor_sum
                         \ ." value equal to alive_num" cr cr
+                        ." valid neighbor" cr
                     else
                         ." value not equal to alive_num" cr
                         drop
                     then
                 else
-                    I . ." I " J . ." J not in grid" cr cr
+                   ." not in grid" cr cr
                 then
             then
         loop      \ ensures that n=0 is skipped to avoid checking "current" cell
@@ -105,20 +107,21 @@ variable alive_num      \ value a cell must have to be considered alive
 ;
 
 : apply_rule { applies rules on cell (x,y) using value of neighbor_sum}
-    swap dup . ." x " swap dup . ." y" cr
+    \ swap dup . ." x " swap dup . ." y" cr
     neighbor_sum @
     case
-        0 of 0 rot rot update_array_! ." no alive neighbors" show_update_array cr cr endof { takes x,y,value --> rotates to value x,y and moves to update_array}
-        1 of 0 rot rot update_array_! ."  1 living neighbor" show_update_array cr cr endof
+        0 of 0 rot rot update_array_! show_update_array cr cr endof { takes x,y,value --> rotates to value x,y and moves to update_array}
+        1 of 0 rot rot update_array_! show_update_array cr cr endof
         \ 2 of 0 rot rot update_array_! endof
-        3 of 1 rot rot update_array_! ."  3 living neighbors" show_update_array cr cr endof
-        4 of 0 rot rot update_array_! ."  4 living neighbors" show_update_array cr cr endof
-        5 of 0 rot rot update_array_! ."  5 living neighbors" show_update_array cr cr endof
-        6 of 0 rot rot update_array_! ."  6 living neighbors" show_update_array cr cr endof
-        7 of 0 rot rot update_array_! ."  7 living neighbors" show_update_array cr cr endof
-        8 of 0 rot rot update_array_! ."  8 living neighbots" show_update_array cr cr endof
+        3 of 1 rot rot update_array_! show_update_array cr cr endof
+        4 of 0 rot rot update_array_! show_update_array cr cr endof
+        5 of 0 rot rot update_array_! show_update_array cr cr endof
+        6 of 0 rot rot update_array_! show_update_array cr cr endof
+        7 of 0 rot rot update_array_! show_update_array cr cr endof
+        8 of 0 rot rot update_array_! show_update_array cr cr endof
         \ drop DUP OF ."  no living neighbors found" endof
     endcase
+    neighbor_sum @ . ." living neighbors found"
     cr cr
 ;
 
@@ -129,6 +132,7 @@ variable alive_num      \ value a cell must have to be considered alive
 
     array_y_dim 0 do
         array_x_dim 0 do
+            I . ." y " J . ." x" cr
             J I check_neighbors 
             J I apply_rule
             cr cr cr cr cr cr cr 
@@ -158,11 +162,11 @@ drop drop
 
 reset_array
 show_array
-1 1 1 array_!
-1 1 2 array_!
-1 2 1 array_!
-1 2 2 array_!
-\ 1 1 boat
+\ 1 1 1 array_!
+\ 1 1 2 array_!
+\ 1 2 1 array_!
+\ 1 2 2 array_!
+1 1 boat
 show_array
 update_game
 show_array
