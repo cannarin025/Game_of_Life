@@ -291,7 +291,7 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
 
 : bmp-to-screen-copy  ( n -- )            { Writes bmp at address to window with hwnd   }
   bmp-window-handle @ GetDC               { handle of device context we want to draw in }
-  2 2                                       { x , y of upper-left corner of dest. rect.   }
+  2 2                                     { x , y of upper-left corner of dest. rect.   }
   bmp-x-size @ 3 -  bmp-y-size @          { width , height of source rectangle          }
   0 0                                     { x , y coord of source rectangle lower left  }
   0                                       { First scan line in the array                }
@@ -351,23 +351,26 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
   until 
   ;
 
-: init_life
+: Show                                { Update bmp and display to match changes in conway_array}
+  bmp-address @ Update_BMP            { Copy conway_array as BMP                        }
+  bmp-address @ bmp-to-screen-stretch { Stretch .bmp to display window                  }
+;
+
+: init_life                           { Create life window with variable pixel size}
   ." Creating life stretch BMP window"
   New-bmp-Window-stretch
   bmp-window-handle !
   reset_array
+  Show
 ;
 
-: display_life                        { Draw bmp to screen at variable pixel size       }
+: play_life                           { Draw bmp to screen at variable pixel size       }
   cr ." Starting stretch to window test " 
   cr
-  \ bmp-window-handle !                 { Store window handle                             }
-  \ 1 1 lwss                            { initial conditions}
   begin                               { Begin update / display loop                     }
-  bmp-address @ Update_BMP            { Copy conway_array as BMP                        }
-  bmp-address @ bmp-to-screen-stretch { Stretch .bmp to display window                  }
+  Show
   100 ms                              { Delay for viewing ease, reduce for higher speed }
-  update_game
+  update_game                         { Run next iteration of life}
   key?                                { Break test loop on key press                    }
   until 
   ;
