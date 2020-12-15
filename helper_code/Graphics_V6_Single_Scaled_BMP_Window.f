@@ -370,10 +370,21 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
   begin                               { Begin update / display loop                     }
   Show
   100 ms                              { Delay for viewing ease, reduce for higher speed }
-  update_game                         { Run next iteration of life}
+  update_game_unwrapped               { Run next iteration of life}
   key?                                { Break test loop on key press                    }
   until 
   ;
+
+: play_life_wrapped
+  cr ." Starting stretch to window test " 
+  cr
+  begin                               { Begin update / display loop                     }
+  Show
+  100 ms                              { Delay for viewing ease, reduce for higher speed }
+  update_game_wrapped               { Run next iteration of life}
+  key?                                { Break test loop on key press                    }
+  until 
+;
 
 
 { ----------------------------- Run Test Output Routines -------------------------------- }
