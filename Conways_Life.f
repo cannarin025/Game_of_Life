@@ -1,8 +1,8 @@
 \ : quit_sf 101719502 TYPE ;
 
 { array code}
-500 constant array_x_dim
-500 constant array_y_dim
+200 constant array_x_dim
+200 constant array_y_dim
 
 array_x_dim array_y_dim * constant array_size
 
@@ -59,8 +59,14 @@ create update_array array_size allot
 
 variable neighbor_sum   \ number of living neighbors a cell has
 variable alive_num      \ value a cell must have to be considered alive
+variable total_alive
+variable total_dead
+variable iteration
 0 neighbor_sum !
 1 alive_num !
+0 total_alive !
+0 total_dead !
+0 iteration !
 
 : check_neighbors_unwrapped   { (x,y) check_neighbors. Checks number of neigbors of cell at (x,y)} 
     0 neighbor_sum ! \ resetting neighbor sum before use
@@ -187,6 +193,8 @@ variable alive_num      \ value a cell must have to be considered alive
             I J array_!
         loop
     loop
+
+    iteration @ 1 + iteration !
 ;
 
 : update_game_wrapped
