@@ -161,23 +161,30 @@ variable iteration
             swap dup rot dup rot swap array_@ alive_num @ - 0= 
             if 
                 alive_num @ rot rot update_array_!
+                total_alive @ 1 + total_alive !
             else
                 0 rot rot update_array_!
             then
         endof
-        3 of 1 rot rot update_array_! endof
+        3 of alive_num @ rot rot update_array_! total_alive @ 1 + total_alive ! endof
         4 of 0 rot rot update_array_! endof
         5 of 0 rot rot update_array_! endof
         6 of 0 rot rot update_array_! endof
         7 of 0 rot rot update_array_! endof
         8 of 0 rot rot update_array_! endof
     endcase
+
+    array_size total_alive @ - total_dead !
+
 ;
 
 : update_game_unwrapped 
     { updates update_array}
 
     reset_update_array
+
+    0 total_alive !
+    0 total_dead !
 
     array_y_dim 0 do
         array_x_dim 0 do
@@ -200,6 +207,9 @@ variable iteration
 : update_game_wrapped
     { updates update_array}
 
+    0 total_alive !
+    0 total_dead !
+
     reset_update_array
 
     array_y_dim 0 do
@@ -216,6 +226,9 @@ variable iteration
             I J array_!
         loop
     loop
+
+    iteration @ 1 + iteration !
+    
 ;
 
 : live 
