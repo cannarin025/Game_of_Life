@@ -109,7 +109,7 @@ variable test-file-id                             { Create Variable to hold file
   Write-blank-data
   test-file-size cr cr ." File End Size =   " d. cr cr
   close-test-file
-  ." Test ascii data file written to C:\Temp directory\test_file.csv " cr cr
+  ." Test ascii data file written to C:\Users\canna\Documents\Code\Projects\Conways_Life\Data\life_data.csv " cr cr
 ;
 
 \ : go
