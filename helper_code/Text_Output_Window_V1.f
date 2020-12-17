@@ -102,7 +102,7 @@ SWITCH]
 : CREATE-TEXT-WINDOW ( -- handle )
       0                                 \ extended style
       CLASSNAME                         \ window class name
-      Z" Laser Data"                    \ window caption
+      Z" Life Statistics"                    \ window caption
       WS_OVERLAPPEDWINDOW               \ window style
       40 40 250 220                     \ static initial position and size
       0                                 \ parent window handle
