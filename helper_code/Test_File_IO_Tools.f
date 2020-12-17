@@ -44,10 +44,9 @@ variable test-file-id                             { Create Variable to hold file
 
 
 : write-file-header 
-  s"   1st Line of header " test-file-id @ write-line drop { Writes single lines of text to a file }
-  s"   2nd Line of header " test-file-id @ write-line drop { terminating each line with a LF/CR.   }
-  s"   3rd Line of header " test-file-id @ write-line drop { The file must be open for R/W access  }
-  s"                      " test-file-id @ write-line drop { first.                                }
+  s"   Conway's Game of Life Data " test-file-id @ write-line drop                                                            { Writes single lines of text to a file }
+  s"   Format: Iteration number, total number of living cells, total number of dead cells " test-file-id @ write-line drop    { terminating each line with a LF/CR.   }
+  s"                      " test-file-id @ write-line drop                                                                    { first.                                }
  ;
 
 
