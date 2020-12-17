@@ -20,13 +20,13 @@ variable test-file-id                             { Create Variable to hold file
 
 
 : make-test-file                                  { Create a test file to read / write to  }
-  s" C:\Users\canna\Documents\Code\Projects\Conways_Life\Data\test_file.csv" r/w create-file drop  { Create the file                        } 
+  s" C:\Users\canna\Documents\Code\Projects\Conways_Life\Data\life_data.csv" r/w create-file drop  { Create the file                        } 
   test-file-id !                                  { Store file handle for later use        }
 ;
 
  
 : open-test-file                                  { Open the file for read/write access    }
-  s" C:\Users\canna\Documents\Code\Projects\Conways_Life\Data\test_file.csv" r/w open-file drop    { Not needed if we have just created     }
+  s" C:\Users\canna\Documents\Code\Projects\Conways_Life\Data\life_data.csv" r/w open-file drop    { Not needed if we have just created     }
   test-file-id !                                  { file.                                  }
 ;
 
@@ -81,6 +81,14 @@ variable test-file-id                             { Create Variable to hold file
   i i i * * (.) test-file-id @ write-line drop
   loop
 ;
+
+: Write_Sim_Data 
+  iteration @   (.)   test-file-id @ write-file drop
+  s" ,"               test-file-id @ write-file drop
+  total_alive @ (.)   test-file-id @ write-file drop
+  s" ,"               test-file-id @ write-file drop
+  total_dead @  (.)   test-file-id @ write-line drop
+;
   
 : Write-blank-data                                         { Write an empty line to the file       }
   s"  " test-file-id @ write-line drop
@@ -92,18 +100,29 @@ variable test-file-id                             { Create Variable to hold file
 
 
 
-: go
+: Make_Sim_File
   make-test-file
   test-file-size cr cr ." File Start Size = " d.
   write-file-header
-  Write-file-powers
+;
+
+: End_Sim_File
   Write-blank-data
   test-file-size cr cr ." File End Size =   " d. cr cr
   close-test-file
   ." Test ascii data file written to C:\Temp directory\test_file.csv " cr cr
 ;
 
-go
+\ : go
+\   make-test-file
+\   test-file-size cr cr ." File Start Size = " d.
+\   write-file-header
+\   Write-file-powers
+\   Write-blank-data
+\   test-file-size cr cr ." File End Size =   " d. cr cr
+\   close-test-file
+\   ." Test ascii data file written to C:\Temp directory\test_file.csv " cr cr
+\ ;
 
 
 
