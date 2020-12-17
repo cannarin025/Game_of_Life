@@ -376,14 +376,17 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
   ;
 
 : play_life_wrapped
+  Make_Sim_File
   cr ." Starting stretch to window test " 
   cr
   begin                               { Begin update / display loop                     }
   Show
   100 ms                              { Delay for viewing ease, reduce for higher speed }
   update_game_wrapped               { Run next iteration of life}
+  Write_Sim_Data
   key?                                { Break test loop on key press                    }
   until 
+  End_Sim_File
 ;
 
 
