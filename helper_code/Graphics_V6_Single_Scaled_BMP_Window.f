@@ -358,6 +358,7 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
 
 : init_life                           { Create life window with variable pixel size}
   ." Creating life stretch BMP window"
+  0 iteration !
   New-bmp-Window-stretch
   bmp-window-handle !
   reset_array
@@ -365,20 +366,25 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
 ;
 
 : play_life                           { Draw bmp to screen at variable pixel size       }
+  Make_Sim_File
   cr ." Starting stretch to window test " 
   cr
+  0 iteration !
   begin                               { Begin update / display loop                     }
   Show
   100 ms                              { Delay for viewing ease, reduce for higher speed }
   update_game_unwrapped               { Run next iteration of life}
+  Write_Sim_Data
   key?                                { Break test loop on key press                    }
-  until 
+  until
+  End_Sim_File 
   ;
 
 : play_life_wrapped
   Make_Sim_File
   cr ." Starting stretch to window test " 
   cr
+  0 iteration !
   begin                               { Begin update / display loop                     }
   Show
   100 ms                              { Delay for viewing ease, reduce for higher speed }
@@ -393,10 +399,5 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
 { ----------------------------- Run Test Output Routines -------------------------------- }
 
 init_life
-
-\ go-copy  { Demo copy to screen routine }
-
-\ conway_array 0 + c@
-\ go-stretch  { Demo stretch to screen routine }
 
 
