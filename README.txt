@@ -6,6 +6,8 @@ To play life please run Main.f.
 
     Note: The size of the array can be edited by changing the values of the constants at the top of Main.f
 
+    If any issues are encountered, please force-restart SwiftForth
+
     - You will see 2 windows appear. 
             - BMP Window will display your life array. 
             - Life Statistics will display statistics about the running game.
