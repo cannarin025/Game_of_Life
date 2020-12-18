@@ -41,6 +41,19 @@ variable Test_Var_7
    DUP ( hdc)  L-Spaces total_dead @   (.)
                swap drop - Char-Pixels *
                100 + 60 total_dead @   (.)      TextOut DROP
+
+   DUP ( hdc)  10  80 S" Born this generation       "      TextOut DROP
+   DUP ( hdc)  140 80 S"                 "      TextOut DROP
+   DUP ( hdc)  L-Spaces born @    (.)
+               swap drop - Char-Pixels *
+               100 + 80 born @    (.)     TextOut DROP
+
+   DUP ( hdc)  10 100 S" Died this generation       "      TextOut DROP
+   DUP ( hdc)  140 100 S"                "      TextOut DROP
+   DUP ( hdc)  L-Spaces died @ (.)
+               swap drop - Char-Pixels *
+               100 + 100 died @ (.)       TextOut DROP 
+   
    DROP
    ;
 

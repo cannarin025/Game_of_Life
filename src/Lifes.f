@@ -1,3 +1,5 @@
+Include src/Rnd.f
+
 { shapes}
 
 { still lifes}
@@ -48,6 +50,12 @@
     1 pick 1 + 1 pick 2 + live
     1 pick 2 + 1 pick 2 + live
     drop drop 
+;
+ 
+: Random-Spawn \ n Random-Spawn, creates n cells at random locations between array_x_size and array_y_size
+    0 do
+       alive_num @ array_x_dim 1 - RND array_y_dim 1 - RND array_!
+    loop
 ;
 
 : Kekw

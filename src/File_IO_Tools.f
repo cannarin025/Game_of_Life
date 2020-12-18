@@ -45,7 +45,7 @@ variable test-file-id                             { Create Variable to hold file
 
 : write-file-header 
   s"   Conway's Game of Life Data " test-file-id @ write-line drop                                                            { Writes single lines of text to a file }
-  s"   Format: Iteration number, total number of living cells, total number of dead cells " test-file-id @ write-line drop    { terminating each line with a LF/CR.   }
+  s"   Format: Iteration number, total number of living cells, total number of dead cells, cells born this generation, no of cells that died this generation " test-file-id @ write-line drop    { terminating each line with a LF/CR.   }
   s"                      " test-file-id @ write-line drop                                                                    { first.                                }
  ;
 
@@ -86,7 +86,11 @@ variable test-file-id                             { Create Variable to hold file
   s" ,"               test-file-id @ write-file drop
   total_alive @ (.)   test-file-id @ write-file drop
   s" ,"               test-file-id @ write-file drop
-  total_dead @  (.)   test-file-id @ write-line drop
+  total_dead @   (.)  test-file-id @ write-file drop
+  s" ,"               test-file-id @ write-file drop
+  born @ (.)          test-file-id @ write-file drop
+  s" ,"               test-file-id @ write-file drop
+  died @  (.)         test-file-id @ write-line drop
 ;
   
 : Write-blank-data                                         { Write an empty line to the file       }
