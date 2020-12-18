@@ -232,4 +232,3 @@ variable iteration
 : live 
     alive_num @ rot rot array_!
 ;
-
