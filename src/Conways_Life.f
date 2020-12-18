@@ -6,8 +6,6 @@
 
 array_x_dim array_y_dim * constant array_size
 
-\ create conway_array array_size allocate drop drop
-
 create conway_array array_size allot
 
 create update_array array_size allot
