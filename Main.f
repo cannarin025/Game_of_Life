@@ -6,7 +6,7 @@
 Include src/Conways_Life.f
 Include src/Lifes.f
 Include src/Text_Output_Window_V1.f
-Include src/Test_File_IO_Tools.f
+Include src/File_IO_Tools.f
 Include src/Graphics_V6_Single_Scaled_BMP_Window.f
 Include src/Lifes.f
 
