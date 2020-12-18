@@ -1,21 +1,41 @@
----------------------------------Welcome to Conway's Life in FORTH---------------------------------
+------------------------------------------------------------------------Welcome to Conway's Life in FORTH------------------------------------------------------------------------
 
-a. Please run files in the following order:
+Warning: Before playing life, please open /src/Graphics_V6_Single_Scaled_BMP_Window.f to set a valid file path where the data from each simulation can be saved.
 
-    1. Conways_Life.f
+To play life please run Main.f.
 
-        - Edit grid size at the top of this file by changine array_x_dim, array_y_dim.
-        - this file will create the grid upon which life is played and define the required words to manipulate the grid.
+    Note: The size of the array can be edited by changing the values of the constants at the top of Main.f
 
+    - You will see 2 windows appear. 
+            - BMP Window will display your life array. 
+            - Life Statistics will display statistics about the running game.
 
-    2. Graphics_V6_Single_Scaled_BMP_Window.f
+                Note: if Life Statistics is closed, please re-run Main.f to create a new window.
 
-        - This file will define all the required words to generate and display bitmap animations.
-        - This file will create a new window for the game of life to run in. 
+    - To use this program please use the following words in the FORTH console:
 
+            Play_Life           - Runs animation using current grid without wrapping until a key is pressed.
+            Play_Life_Wrapped   - Runs animation using current grid with wrapping until a key is pressed.
+            x y <shape_name>    - Adds follwing shape to grid with bottom left corner at position (x,y). Shapes can be found in shapes.f.
+            Show                - Updates graphical display. example use: 50 50 lwss show. This will create an lwss at (x,y) = 50, 50 and update the graphical display.
+            Reset_Array         - Clears life array.
+            Init_Life           - Use to restart life from console should the display window be closed accidentally.
 
-b. Use following words to run simulation:
+    - Running a simulation will cause a file to be created at <filepath> which will store the simulation statistics in a CSV until the a key is pressed and the simulation ends.
 
-    display_life        - runs animation using current grid until a key is pressed.
-    x,y <shape_name>    - adds follwing shape to grid with bottom left corner at position (x,y). Shapes can be found at the bottom of Conways_Life.f
-    reset_array         - clears life array.
+        Warning: Please open /src/Graphics_V6_Single_Scaled_BMP_Window.f to set a valid <filepath> where the data CSV can be saved
+        
+        Note: This file will be overwritten each time a simulation plays. Be sure to rename the file afterwards if you want to keep the results.
+
+This project is structured as follows:
+
+    Main.f                      - Main file to run program
+    /Data                       - Directory storing data from simulation
+    /src                        - Directory containing backend code.
+
+        /src/Conways_Life.f                         - File containing FORTH words to create and update life array.
+        /src/Graphics_V6_Single_Scaled_BMP_Window   - File containing FORTH words to handle displaying and playing life.
+        /src/Lifes.f                                - File containing FORTH words to create different Lifes.
+        /src/Rnd.f                                  - File containing FORTH words to generate random numbers.
+        /src/Test_File_IO_Tools.f                   - File containing FORTH words to create and save data CSV file.
+        /src/Text_Output_Window_V1.f                - File containing FORTH words to display life statistics in separate window.

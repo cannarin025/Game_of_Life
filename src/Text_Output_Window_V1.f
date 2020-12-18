@@ -41,30 +41,6 @@ variable Test_Var_7
    DUP ( hdc)  L-Spaces total_dead @   (.)
                swap drop - Char-Pixels *
                100 + 60 total_dead @   (.)      TextOut DROP
- 
-   \ DUP ( hdc)  10  80 S" Title 004       "      TextOut DROP
-   \ DUP ( hdc)  140 80 S"                 "      TextOut DROP
-   \ DUP ( hdc)  L-Spaces Test_Var_4 @    (.)
-   \             swap drop - Char-Pixels *
-   \             100 + 80 Test_Var_4 @    (.)     TextOut DROP
-
-   \ DUP ( hdc)  10 100 S" Title 005       "      TextOut DROP
-   \ DUP ( hdc)  140 100 S"                "      TextOut DROP
-   \ DUP ( hdc)  L-Spaces Test_Var_5 @  (.)
-   \             swap drop - Char-Pixels *
-   \             100 + 100 Test_Var_5 @ (.)       TextOut DROP   
-
-   \ DUP ( hdc)  10 120 S" Title 006       "      TextOut DROP
-   \ DUP ( hdc)  140 120 S"                 "     TextOut DROP
-   \ DUP ( hdc)  L-Spaces Test_Var_6 @   (.)
-   \             swap drop - Char-Pixels *
-   \             100 + 120 Test_Var_6 @  (.)      TextOut DROP
-
-   \ DUP ( hdc)  10 140 S" Title 007       "      TextOut DROP
-   \ DUP ( hdc)  140 140 S"                 "     TextOut DROP
-   \ DUP ( hdc)  L-Spaces Test_Var_7 @   (.)  
-   \             swap drop - Char-Pixels *
-   \             100 + 140 Test_Var_7 @  (.)      TextOut DROP 
    DROP
    ;
 
@@ -150,18 +126,3 @@ SWITCH]
 
 
   START-TEXT-WINDOW
-
-\ : Text-Test             { Simple time limited test routine }
-\   100 1 do
-\   I 1 *  Test_Var_1 !
-\   I 2 *  Test_Var_2 !
-\   I 3 *  Test_Var_3 !
-\   I 4 *  Test_Var_4 ! 
-\   I 5 *  Test_Var_5 !
-\   I 6 *  Test_Var_6 !
-\   I 7 *  Test_Var_7 !
-\   40 ms
-\   loop
-\  ;
-
-
