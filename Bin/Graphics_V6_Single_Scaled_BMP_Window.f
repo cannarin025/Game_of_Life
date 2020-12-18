@@ -398,6 +398,6 @@ bmp-APP-CLASS                   { Call class for displaying bmp's in a child win
 
 { ----------------------------- Run Test Output Routines -------------------------------- }
 
-init_life
+\ init_life
 
 
