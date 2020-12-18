@@ -29,6 +29,8 @@ To play life please run Main.f.
         
         Note: This file will be overwritten each time a simulation plays. Be sure to rename the file afterwards if you want to keep the results.
 
+    - Create and test different lifes by adding them to /src/Lifes.f
+
 This project is structured as follows:
 
     Main.f                      - Main file to run program
