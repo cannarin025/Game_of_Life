@@ -34,6 +34,7 @@ This project is structured as follows:
     Main.f                      - Main file to run program
     /Data                       - Directory storing data from simulation
     /src                        - Directory containing backend code.
+    /Exercises                  - Directory containing FORTH introductory exercises (ignore)
 
         /src/Conways_Life.f                         - File containing FORTH words to create and update life array.
         /src/Graphics_V6_Single_Scaled_BMP_Window   - File containing FORTH words to handle displaying and playing life.
