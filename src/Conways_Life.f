@@ -227,7 +227,7 @@ variable died
 
 : apply_rule { applies rules on cell (x,y) using value of neighbor_sum}
     neighbor_sum @
-    dup S - 0= 
+    dup check_in_S 
     if \ survival code
         rot rot
         swap dup rot dup rot swap array_@ alive_num @ - 0= 
@@ -240,7 +240,7 @@ variable died
         drop
 
     else
-        dup B - 0= 
+        dup check_in_B 
         if \ birth code
             rot rot
             swap dup rot dup rot swap array_@ alive_num @ - 0= 

@@ -7,8 +7,8 @@
     0 depth 2 - do
     I pick .
 -1 +loop
-." <top " ;
-
+." <top "
+;
 
 { -------------------------------Life ruleset-------------------------------- }
 clear_stack
@@ -57,7 +57,7 @@ fill_S_array
 
 
 { Number of neighbors for birth}
-3 7 8 \ edit these numbers to number of neighbors required for birth (make sure these are unique)
+3 \ edit these numbers to number of neighbors required for birth (make sure these are unique)
 
 depth constant B_length
 create B_array B_length allot
@@ -98,27 +98,30 @@ create B_array B_length allot
 
 fill_B_array
 
+variable check_depth
 
 : check_in_S \ example: 5 check_in_s returns -1 for true if S contains 5
+    S_length 1 + check_depth !
     get_all_S
     S_length 0=
     if
         drop
         0
     else
-        depth 1 - pick 
+        check_depth @ 1 - pick 
         - 0=
 
-        depth 2 - 0=
+        check_depth @ 2 - 0=
         if
             swap drop \ drops number being checked. will return whatever result of above logical operation was if depth of stack is 2 (i.e. only 1 element in list)
         else
             begin
                 swap
-                depth 1 - pick 
+                check_depth @ 1 - pick 
                 - 0=
                 or
-                depth 2 - 0= 
+                check_depth @ 1 - check_depth !
+                check_depth @ 2 - 0= 
             until
             swap drop
         then
@@ -126,30 +129,58 @@ fill_B_array
 ;
 
 : check_in_B \ example: 5 check_in_B returns -1 for true if B contains 5
+    B_length 1 + check_depth !
     get_all_B
     B_length 0=
     if
         drop
         0
     else
-        depth 1 - pick 
+        check_depth @ 1 - pick 
         - 0=
-
-        depth 2 - 0=
+        
+        check_depth @ 2 - 0=
         if
             swap drop \ drops number being checked. will return whatever result of above logical operation was if depth of stack is 2 (i.e. only 1 element in list)
         else
             begin
                 swap
-                depth 1 - pick 
+                check_depth @ 1 - pick 
                 - 0=
                 or
-                depth 2 - 0= 
+                check_depth @ 1 - check_depth !
+                check_depth @ 2 - 0= 
             until
             swap drop
         then
     then
 ;
+
+\ : check_in_B \ example: 5 check_in_B returns -1 for true if B contains 5
+\     get_all_B
+\     B_length 0=
+\     if
+\         drop
+\         0
+\     else
+\         depth 1 - pick 
+\         - 0=
+
+\         depth 2 - 0=
+\         if
+\             swap drop \ drops number being checked. will return whatever result of above logical operation was if depth of stack is 2 (i.e. only 1 element in list)
+\         else
+\             begin
+\                 swap
+\                 depth 1 - pick 
+\                 - 0=
+\                 or
+\                 depth 2 - 0= 
+\             until
+\             swap drop
+\         then
+\     then
+\ ;
 
 \ : check_commented \ example: 5 check_in_s returns -1 for true if S contains 5
 \     get_all_S
