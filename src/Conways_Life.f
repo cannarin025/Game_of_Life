@@ -1,8 +1,5 @@
-\ : quit_sf 101719502 TYPE ;
-
 { array code}
-\ 200 constant array_x_dim          Array size defined in main.f
-\ 200 constant array_y_dim
+: clear_stack 0 begin drop depth 1 < until ; 
 
 array_x_dim array_y_dim * constant array_size
 
@@ -152,80 +149,119 @@ variable died
     \ neighbor_sum @   \ puts neighbor_sum (number of surrounding alive cells) on stack
 ;
 
+\ : apply_rule { applies rules on cell (x,y) using value of neighbor_sum}
+\     neighbor_sum @
+
+\     case
+\         0 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
+\             if  \ cell is living ==> dies
+\                 died @ 1 + died !
+\             then
+\                 0 rot rot update_array_! \ takes x,y,value --> rotates to value x,y and moves to update_array
+\         endof 
+
+\         1 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
+\             if  \ cell is living ==> dies
+\                 died @ 1 + died !
+\             then
+\                 0 rot rot update_array_! 
+\         endof
+
+\         2 of 
+\             swap dup rot dup rot swap array_@ alive_num @ - 0= 
+\             if  \ cell is living ==> survives
+\                 alive_num @ rot rot update_array_!
+\                 total_alive @ 1 + total_alive !
+\             else \ cell was not living
+\                 0 rot rot update_array_!
+\             then
+\         endof
+\         3 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
+\             if  \ cell is living ==> no new cell born
+\                 alive_num @ rot rot update_array_! total_alive @ 1 + total_alive ! 
+\             else \ cell is born 
+\                 alive_num @ rot rot update_array_! total_alive @ 1 + total_alive !
+\                 born @ 1 + born !
+\             then 
+\         endof
+
+\         4 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
+\             if  \ cell is living ==> dies
+\                 died @ 1 + died !
+\             then
+\                 0 rot rot update_array_! 
+\         endof 
+
+\         5 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
+\             if  \ cell is living ==> dies
+\                 died @ 1 + died !
+\             then
+\                 0 rot rot update_array_! 
+\         endof 
+
+\         6 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
+\             if  \ cell is living ==> dies
+\                 died @ 1 + died !
+\             then
+\                 0 rot rot update_array_! 
+\         endof 
+        
+\         7 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
+\             if  \ cell is living ==> dies
+\                 died @ 1 + died !
+\             then
+\                 0 rot rot update_array_! 
+\         endof 
+        
+\         8 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
+\             if  \ cell is living ==> dies
+\                 died @ 1 + died !
+\             then
+\                 0 rot rot update_array_! 
+\         endof 
+\     endcase
+
+\     array_size total_alive @ - total_dead !
+
+\ ;
+
 : apply_rule { applies rules on cell (x,y) using value of neighbor_sum}
     neighbor_sum @
+    dup S - 0= 
+    if \ survival code
+        rot rot
+        swap dup rot dup rot swap array_@ alive_num @ - 0= 
+        if  \ cell is living ==> survives
+            alive_num @ rot rot update_array_!
+            total_alive @ 1 + total_alive !
+        else \ cell was not living
+            0 rot rot update_array_!
+        then
+        drop
 
-    case
-        0 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-            if  \ cell is living ==> dies
-                died @ 1 + died !
-            then
-                0 rot rot update_array_! \ takes x,y,value --> rotates to value x,y and moves to update_array
-        endof 
-
-        1 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-            if  \ cell is living ==> dies
-                died @ 1 + died !
-            then
-                0 rot rot update_array_! 
-        endof
-
-        2 of 
+    else
+        dup B - 0= 
+        if \ birth code
+            rot rot
             swap dup rot dup rot swap array_@ alive_num @ - 0= 
-            if  \ cell is living ==> survives
-                alive_num @ rot rot update_array_!
-                total_alive @ 1 + total_alive !
-            else \ cell was not living
-                0 rot rot update_array_!
-            then
-        endof
-        3 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
             if  \ cell is living ==> no new cell born
                 alive_num @ rot rot update_array_! total_alive @ 1 + total_alive ! 
             else \ cell is born 
                 alive_num @ rot rot update_array_! total_alive @ 1 + total_alive !
                 born @ 1 + born !
             then 
-        endof
-
-        4 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
+            drop
+            
+        else \ death code
+            drop
+            swap dup rot dup rot swap array_@ alive_num @ - 0= 
             if  \ cell is living ==> dies
                 died @ 1 + died !
             then
-                0 rot rot update_array_! 
-        endof 
-
-        5 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-            if  \ cell is living ==> dies
-                died @ 1 + died !
-            then
-                0 rot rot update_array_! 
-        endof 
-
-        6 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-            if  \ cell is living ==> dies
-                died @ 1 + died !
-            then
-                0 rot rot update_array_! 
-        endof 
-        
-        7 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-            if  \ cell is living ==> dies
-                died @ 1 + died !
-            then
-                0 rot rot update_array_! 
-        endof 
-        
-        8 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-            if  \ cell is living ==> dies
-                died @ 1 + died !
-            then
-                0 rot rot update_array_! 
-        endof 
-    endcase
-
+                0 rot rot update_array_!
+        then
+    then
     array_size total_alive @ - total_dead !
-
 ;
 
 : update_game_unwrapped 

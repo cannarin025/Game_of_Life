@@ -39,8 +39,9 @@ This project is structured as follows:
     /Exercises                  - Directory containing FORTH introductory exercises (ignore)
 
         /src/Conways_Life.f                         - File containing FORTH words to create and update life array.
-        /src/Graphics_V6_Single_Scaled_BMP_Window   - File containing FORTH words to handle displaying and playing life.
+        /src/Graphics_V6_Single_Scaled_BMP_Window   - File containing FORTH words to handle displaying.
         /src/Lifes.f                                - File containing FORTH words to create different Lifes.
         /src/Rnd.f                                  - File containing FORTH words to generate random numbers.
         /src/Test_File_IO_Tools.f                   - File containing FORTH words to create and save data CSV file.
         /src/Text_Output_Window_V1.f                - File containing FORTH words to display life statistics in separate window.
+        /src/Play.f                                 - File containing FORTH words to play game of life.
