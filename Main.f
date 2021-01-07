@@ -1,8 +1,9 @@
 { Array parameters}
 
-200 constant array_x_dim
-200 constant array_y_dim
+500 constant array_x_dim
+500 constant array_y_dim
 
+Include src/Utilities.f
 Include src/Ruleset.f
 Include src/Conways_Life.f
 Include src/Lifes.f

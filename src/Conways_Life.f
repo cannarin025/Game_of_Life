@@ -1,5 +1,4 @@
 { array code}
-: clear_stack 0 begin drop depth 1 < until ; 
 
 array_x_dim array_y_dim * constant array_size
 
@@ -68,16 +67,18 @@ variable activity
 1 total_alive_last !        \ arbitrary start value to prevent division by 0
 0 total_dead !
 0 iteration !
+0 activity !
 
 : get_activity
     total_alive_last @ 0=
     if
-        -1                                    \ erroneous value
+        1111111111 activity !                  \ erroneous value
     else
         total_alive @ total_alive_last @ -    \ works out difference between previous generation and current generation
         100000 *                              \ multiplies by 100000 to avoid using floats (need to divide by 100000 later for analysis)
-        total_alive_last /                    \ divides by previous total activity to get activity * 100000
+        total_alive_last @ /                    \ divides by previous total activity to get activity * 100000
         activity !
+    then
 ;
 
 : check_neighbors_unwrapped   { (x,y) check_neighbors. Checks number of neigbors of cell at (x,y)} 
