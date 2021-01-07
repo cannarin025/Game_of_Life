@@ -14,7 +14,12 @@
 clear_stack
 
 { Number of neighbors for survival}
- 2 \ edit these numbers to vary number of neighbors required for survival (make sure these are unique)
+
+
+{ --------------------------------Vary S here-------------------------------- }
+2 3          
+{ ----------------------------------------------------------------------------}
+
 
 depth constant S_length
 create S_array S_length allot
@@ -57,7 +62,11 @@ fill_S_array
 
 
 { Number of neighbors for birth}
-3 \ edit these numbers to number of neighbors required for birth (make sure these are unique)
+
+
+{ --------------------------------Vary B here-------------------------------- }
+3
+{ ----------------------------------------------------------------------------}
 
 depth constant B_length
 create B_array B_length allot

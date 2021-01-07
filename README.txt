@@ -5,6 +5,7 @@ Warning: Before playing life, please open /src/Graphics_V6_Single_Scaled_BMP_Win
 To play life please run Main.f.
 
     Note: The size of the array can be edited by changing the values of the constants at the top of Main.f
+    Note: The rules of the Game of Life can be varied by editing the values for S and B in the relevant place in Ruleset.f. Please supply values in the range <None> to 8.
 
     If any issues are encountered, please force-restart SwiftForth
 
@@ -45,3 +46,4 @@ This project is structured as follows:
         /src/Test_File_IO_Tools.f                   - File containing FORTH words to create and save data CSV file.
         /src/Text_Output_Window_V1.f                - File containing FORTH words to display life statistics in separate window.
         /src/Play.f                                 - File containing FORTH words to play game of life.
+        /src/Ruleset.f                              - File containing FORTH words governing ruleset.

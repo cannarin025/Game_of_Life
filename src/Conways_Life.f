@@ -149,117 +149,28 @@ variable died
     \ neighbor_sum @   \ puts neighbor_sum (number of surrounding alive cells) on stack
 ;
 
-\ : apply_rule { applies rules on cell (x,y) using value of neighbor_sum}
-\     neighbor_sum @
 
-\     case
-\         0 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-\             if  \ cell is living ==> dies
-\                 died @ 1 + died !
-\             then
-\                 0 rot rot update_array_! \ takes x,y,value --> rotates to value x,y and moves to update_array
-\         endof 
-
-\         1 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-\             if  \ cell is living ==> dies
-\                 died @ 1 + died !
-\             then
-\                 0 rot rot update_array_! 
-\         endof
-
-\         2 of 
-\             swap dup rot dup rot swap array_@ alive_num @ - 0= 
-\             if  \ cell is living ==> survives
-\                 alive_num @ rot rot update_array_!
-\                 total_alive @ 1 + total_alive !
-\             else \ cell was not living
-\                 0 rot rot update_array_!
-\             then
-\         endof
-\         3 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-\             if  \ cell is living ==> no new cell born
-\                 alive_num @ rot rot update_array_! total_alive @ 1 + total_alive ! 
-\             else \ cell is born 
-\                 alive_num @ rot rot update_array_! total_alive @ 1 + total_alive !
-\                 born @ 1 + born !
-\             then 
-\         endof
-
-\         4 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-\             if  \ cell is living ==> dies
-\                 died @ 1 + died !
-\             then
-\                 0 rot rot update_array_! 
-\         endof 
-
-\         5 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-\             if  \ cell is living ==> dies
-\                 died @ 1 + died !
-\             then
-\                 0 rot rot update_array_! 
-\         endof 
-
-\         6 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-\             if  \ cell is living ==> dies
-\                 died @ 1 + died !
-\             then
-\                 0 rot rot update_array_! 
-\         endof 
-        
-\         7 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-\             if  \ cell is living ==> dies
-\                 died @ 1 + died !
-\             then
-\                 0 rot rot update_array_! 
-\         endof 
-        
-\         8 of swap dup rot dup rot swap array_@ alive_num @ - 0= 
-\             if  \ cell is living ==> dies
-\                 died @ 1 + died !
-\             then
-\                 0 rot rot update_array_! 
-\         endof 
-\     endcase
-
-\     array_size total_alive @ - total_dead !
-
-\ ;
-
-: apply_rule { applies rules on cell (x,y) using value of neighbor_sum}
-    neighbor_sum @
-    dup check_in_S 
-    if \ survival code
-        rot rot
-        swap dup rot dup rot swap array_@ alive_num @ - 0= 
-        if  \ cell is living ==> survives
+: apply_rule \ applies rules on cell (x,y) using value of neighbor_sum
+    1 pick 1 pick array_@ alive_num @ - 0=  \ duplicates coordinates. Checks if cell at position is alive
+    if \ code for living cells
+        neighbor_sum @ check_in_S \ checks if cell is subject to survival conditions. Birth condition ignored if cell was already alive.
+        if
             alive_num @ rot rot update_array_!
             total_alive @ 1 + total_alive !
-        else \ cell was not living
-            0 rot rot update_array_!
-        then
-        drop
+        else \ if cell does not survive ==> dies
+            0 rot rot update_array_! \ Does not duplicate coordinates to leave stack empty
+            died @ 1 + died !
+        then   
 
-    else
-        dup check_in_B 
-        if \ birth code
-            rot rot
-            swap dup rot dup rot swap array_@ alive_num @ - 0= 
-            if  \ cell is living ==> no new cell born
-                alive_num @ rot rot update_array_! total_alive @ 1 + total_alive ! 
-            else \ cell is born 
-                alive_num @ rot rot update_array_! total_alive @ 1 + total_alive !
-                born @ 1 + born !
-            then 
-            drop
-            
-        else \ death code
-            drop
-            swap dup rot dup rot swap array_@ alive_num @ - 0= 
-            if  \ cell is living ==> dies
-                died @ 1 + died !
-            then
-                0 rot rot update_array_!
-        then
+    else                                        \ code for dead cells
+        neighbor_sum @ check_in_B               \ checks if cell is subject birth. Survival ignored if cell was already dead.
+        if
+            alive_num @ rot rot update_array_!  \ cell comes to life
+            total_alive @ 1 + total_alive !
+            born @ 1 + born ! 
+        else                                    \ stays dead
+            0 rot rot update_array_!            \ Does not duplicate coordinates to leave stack empty
+        then   
     then
     array_size total_alive @ - total_dead !
 ;
