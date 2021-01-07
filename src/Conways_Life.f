@@ -52,18 +52,33 @@ create update_array array_size allot
 
 { cell code}
 
-variable neighbor_sum   \ number of living neighbors a cell has
-variable alive_num      \ value a cell must have to be considered alive
+variable neighbor_sum       \ number of living neighbors a cell has
+variable alive_num          \ value a cell must have to be considered alive
 variable total_alive
+variable total_alive_last   \ total number of living cells last generation
 variable total_dead
 variable iteration
 variable born
 variable died
+variable activity
+
 0 neighbor_sum !
 1 alive_num !
 0 total_alive !
+1 total_alive_last !        \ arbitrary start value to prevent division by 0
 0 total_dead !
 0 iteration !
+
+: get_activity
+    total_alive_last @ 0=
+    if
+        -1                                    \ erroneous value
+    else
+        total_alive @ total_alive_last @ -    \ works out difference between previous generation and current generation
+        100000 *                              \ multiplies by 100000 to avoid using floats (need to divide by 100000 later for analysis)
+        total_alive_last /                    \ divides by previous total activity to get activity * 100000
+        activity !
+;
 
 : check_neighbors_unwrapped   { (x,y) check_neighbors. Checks number of neigbors of cell at (x,y)} 
     0 neighbor_sum ! \ resetting neighbor sum before use
@@ -200,6 +215,9 @@ variable died
         loop
     loop
 
+    get_activity                        \ sets activity
+    total_alive @ total_alive_last !    \ updates total_alive_last for next iteration
+
     iteration @ 1 + iteration !
 ;
 
@@ -227,6 +245,9 @@ variable died
             I J array_!
         loop
     loop
+
+    get_activity                        \ sets activity
+    total_alive @ total_alive_last !    \ updates total_alive_last for next iteration
 
     iteration @ 1 + iteration !
     

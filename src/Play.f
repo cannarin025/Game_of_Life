@@ -21,6 +21,7 @@
   cr ." Starting stretch to window test " 
   cr
   0 iteration !
+  0 total_alive_last !
   begin                               { Begin update / display loop                     }
   Show
   100 ms                              { Delay for viewing ease, reduce for higher speed }
@@ -37,10 +38,11 @@
   cr ." Starting stretch to window test " 
   cr
   0 iteration !
+  0 total_alive_last !
   begin                               { Begin update / display loop                     }
   Show
   100 ms                              { Delay for viewing ease, reduce for higher speed }
-  update_game_wrapped               { Run next iteration of life}
+  update_game_wrapped                 { Run next iteration of life}
   Write_Sim_Data
   key?                                { Break test loop on key press                    }
   until 

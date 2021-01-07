@@ -13,7 +13,9 @@ To play life please run Main.f.
             - BMP Window will display your life array. 
             - Life Statistics will display statistics about the running game.
 
-                Note: if Life Statistics is closed, please re-run Main.f to create a new window.
+                Note: 
+                        -Life statistics displays activity * 100000, please divide out this factor when performing analysis
+                        -If Life Statistics is closed, please re-run Main.f to create a new window.
 
     - To use this program please use the following words in the FORTH console:
 
