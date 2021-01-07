@@ -14,7 +14,7 @@
 clear_stack
 
 { Number of neighbors for survival}
-2 \ edit these numbers to vary number of neighbors required for survival (make sure these are unique)
+ 2 \ edit these numbers to vary number of neighbors required for survival (make sure these are unique)
 
 depth constant S_length
 create S_array S_length allot
