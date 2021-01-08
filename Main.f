@@ -3,6 +3,9 @@
 5 constant array_x_dim
 5 constant array_y_dim
 
+{ Array synchronicity as percentage}
+100 constant synchronicity 
+
 Include src/Rnd.f
 Include src/Utilities.f
 Include src/Ruleset.f

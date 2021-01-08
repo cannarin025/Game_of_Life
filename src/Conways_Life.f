@@ -50,8 +50,6 @@ create update_array array_size allot
 ;
 
 { -------------------------------Synchronicity------------------------------- }
-{ Array synchronicity as percentage}
-100 constant synchronicity 
 
 array_size synchronicity * 100 / constant rule_cells_length \ length of rule_cells is the percentage of total cells given by synchronicity.
 create rule_cells rule_cells_length allot
