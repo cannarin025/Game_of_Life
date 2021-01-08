@@ -14,13 +14,13 @@ create update_array array_size allot
     update_array array_size 0 fill 
  ; 
 
-: array_@ array_x_dim * + conway_array swap + C@ ; { takes input: x, y where x and y go from 0 - n-1}
+: array_@ array_x_dim * + conway_array + C@ ; { takes input: x, y where x and y go from 0 - n-1}
 
-: array_! array_x_dim * + conway_array swap + C! ; { takes input: value, x, y where x and y go from 0 - n-1}
+: array_! array_x_dim * + conway_array + C! ; { takes input: value, x, y where x and y go from 0 - n-1}
 
-: update_array_@ array_x_dim * + update_array swap + C@ ; { takes input: x, y where x and y go from 0 - n-1}
+: update_array_@ array_x_dim * + update_array + C@ ; { takes input: x, y where x and y go from 0 - n-1}
 
-: update_array_! array_x_dim * + update_array swap + C! ; { takes input: value, x, y where x and y go from 0 - n-1}
+: update_array_! array_x_dim * + update_array + C! ; { takes input: value, x, y where x and y go from 0 - n-1}
 
 \ : reset_array
 \     array_size 0 do
