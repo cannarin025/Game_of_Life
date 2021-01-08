@@ -1,4 +1,4 @@
-{ array code}
+{ ---------------------------------Array Code--------------------------------- }
 
 array_x_dim array_y_dim * constant array_size
 
@@ -49,7 +49,74 @@ create update_array array_size allot
     CR 
 ;
 
-{ cell code}
+{ -------------------------------Synchronicity------------------------------- }
+{ Array synchronicity as percentage}
+100 constant synchronicity 
+
+array_size synchronicity * 100 / constant rule_cells_length \ length of rule_cells is the percentage of total cells given by synchronicity.
+create rule_cells rule_cells_length allot
+
+variable random_cell
+variable array_pos
+
+: reset_rule_cells 
+    rule_cells rule_cells_length array_size fill            \ initialises array with impossible value to not interfere with later stages  
+;
+
+reset_rule_cells
+
+: show_rule_cells 
+    rule_cells_length 0
+    do 
+        rule_cells I + C@ . 
+    loop
+    CR 
+;
+
+: check_in_rule_cells
+    array_pos @                             \ copies current value of array_pos so it can be reset at the end
+    swap
+    0 array_pos !
+    dup
+    rule_cells array_pos @ + c@ - 0=        \ checks if inputted value is equal to value at array_pos in rule_cells
+    array_pos @ 1 + array_pos !             \ increments array_pos
+    begin
+        1 pick                              \ duplicates inputted value
+        rule_cells array_pos @ + c@ - 0=
+        or
+        array_pos @ 1 + array_pos !
+
+        array_pos @ rule_cells_length 1 - - 0=
+    until
+    swap
+    drop
+    swap array_pos !                        \ resets array_pos to its initial value before this word started
+;
+
+: fill_rule_cells
+    synchronicity 100 - 0=
+    if
+        array_size 0
+        do
+            I I rule_cells + c!                               \ populates array with every possible index
+        loop
+    else
+        0 array_pos !                                       \ serves as an array length counter
+        begin 
+            array_size RND                                  \ n RND gives number in range 0 to n-1
+            random_cell !
+            random_cell @ check_in_rule_cells
+            if
+            else
+                random_cell @ rule_cells array_pos @ + c!
+                array_pos @ 1 + array_pos !                 \ increments array length counter
+            then 
+            array_pos @ rule_cells_length 1 - >=
+        until
+    then
+;
+
+{ ---------------------------------Cell Code--------------------------------- }
 
 variable neighbor_sum       \ number of living neighbors a cell has
 variable alive_num          \ value a cell must have to be considered alive
