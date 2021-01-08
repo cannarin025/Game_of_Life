@@ -98,7 +98,7 @@ variable activity
                 swap dup I + array_y_dim 1 - <= rot
                 and
                 if 
-                    swap dup rot dup rot swap   \ copies start coords for later use
+                    1 pick 1 pick   \ copies start coords for later use
                     swap J + swap I +   \ gets indices of adjacent cells
                     array_@             \ gets value of adjacent cells. (checks cell at (x+n, y+n) for n = -1,0,1)
                     dup alive_num @ - 0=            \ checks number in cell is equal to alive num to check if adjacent cell is living
@@ -124,7 +124,7 @@ variable activity
             if    
             else 
                 \ I . ." I " J . ." J" cr
-                swap dup rot dup rot swap   \ copies start coords for later use
+                1 pick 1 pick   \ copies start coords for later use
                 swap J + swap I +   \ gets indices of adjacent cells
                 
                 { wrapping edges}
@@ -147,10 +147,8 @@ variable activity
                 if
                     drop
                     array_x_dim 1 -
-                then swap
-
-                \ swap dup rot dup rot . ." checking x   " . ." checking y" cr
-
+                then 
+                swap
                 array_@             \ gets value of adjacent cells. (checks cell at (x+n, y+n) for n = -1,0,1)
                 dup alive_num @ - 0=            \ checks number in cell is equal to alive num to check if adjacent cell is living
                 if 
