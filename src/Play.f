@@ -24,9 +24,9 @@
   0 total_alive_last !
   begin                               { Begin update / display loop                     }
   Show
-  100 ms                              { Delay for viewing ease, reduce for higher speed }
-  reset_rule_cells                    { resets so current values don't impact next      }
-  fill_rule_cells                     { gets new random cells to apply rules to         }
+  iteration_delay ms                  { Delay for viewing ease, reduce for higher speed }
+  \ reset_rule_cells                    { resets so current values don't impact next      }
+  \ fill_rule_cells                     { gets new random cells to apply rules to         }
   update_game_unwrapped               { Run next iteration of life                      }
   Write_Sim_Data
   key?                                { Break test loop on key press                    }
@@ -44,9 +44,9 @@
   0 total_alive_last !
   begin                               { Begin update / display loop                     }
   Show
-  100 ms                              { Delay for viewing ease, reduce for higher speed }
-  reset_rule_cells                    { resets so current values don't impact next      }
-  fill_rule_cells                     { gets new random cells to apply rules to         }
+  iteration_delay ms                  { Delay for viewing ease, reduce for higher speed }
+  \ reset_rule_cells                    { resets so current values don't impact next      }
+  \ fill_rule_cells                     { gets new random cells to apply rules to         }
   update_game_wrapped                 { Run next iteration of life                      }
   Write_Sim_Data
   key?                                { Break test loop on key press                    }

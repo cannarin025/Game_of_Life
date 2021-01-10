@@ -51,9 +51,18 @@ Include src/Rnd.f
     1 pick 2 + 1 pick 2 + live
     drop drop 
 ;
- 
+
+{ random lifes}
+
 : Random-Spawn \ n Random-Spawn, creates n cells at random locations between array_x_size and array_y_size
     0 do
        alive_num @ array_x_dim 1 - RND array_y_dim 1 - RND array_!
+    loop
+;
+
+: Percent-Full \ n Percent-Full, randomly fills grid to n% capacity at random positions
+    array_size * 100 / 0
+    do
+        alive_num @ array_x_dim 1 - RND array_y_dim 1 - RND array_!
     loop
 ;

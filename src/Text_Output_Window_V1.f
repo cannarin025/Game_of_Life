@@ -54,11 +54,11 @@ variable Test_Var_7
                swap drop - Char-Pixels *
                100 + 100 died @ (.)                      TextOut DROP
 
-   DUP ( hdc)  10 100 S" Activity * 100000       "       TextOut DROP
+   DUP ( hdc)  10 120 S" Activity * 100000       "       TextOut DROP
    DUP ( hdc)  140 120 S"                "               TextOut DROP
    DUP ( hdc)  L-Spaces activity @ (.)
                swap drop - Char-Pixels *
-               100 + 100 activity @ (.)                  TextOut DROP 
+               100 + 120 activity @ (.)                  TextOut DROP 
    
    DROP
    ;

@@ -49,7 +49,7 @@ create update_array array_size allot
     CR 
 ;
 
-{ -------------------------------Synchronicity------------------------------- }
+{ -------------------------------Synchronicity------------------------------- } \ this method is highly inefficient and nolonger needed.
 
 \ array_size synchronicity * 100 / constant rule_cells_length \ length of rule_cells is the percentage of total cells given by synchronicity.
 \ create rule_cells rule_cells_length allot
@@ -120,77 +120,77 @@ create update_array array_size allot
 \     array_x_dim * +
 \ ;
 
-array_size synchronicity * 100 / constant rule_cells_length \ length of rule_cells is the percentage of total cells given by synchronicity.
+\ array_size synchronicity * 100 / constant rule_cells_length \ length of rule_cells is the percentage of total cells given by synchronicity.
 
-variable rule_cells
-rule_cells rule_cells_length 1 - cells allot drop           \ creates array of length rule_cells_length
+\ variable rule_cells
+\ rule_cells rule_cells_length 1 - cells allot drop           \ creates array of length rule_cells_length
 
-variable random_cell
-variable array_pos
+\ variable random_cell
+\ variable array_pos
 
-: reset_rule_cells 
-    rule_cells_length 0                                             \ initialises array with impossible value to not interfere with later stages  
-    do
-        array_size rule_cells I cells + !                             \ populates array with every possible index
-    loop
-;
+\ : reset_rule_cells 
+\     rule_cells_length 0                                             \ initialises array with impossible value to not interfere with later stages  
+\     do
+\         array_size rule_cells I cells + !                             \ populates array with every possible index
+\     loop
+\ ;
 
-reset_rule_cells
+\ reset_rule_cells
 
-: show_rule_cells 
-    rule_cells_length 0
-    do 
-        rule_cells I cells + @ .                 \ note. c@ or c! is not used here as 8 bit binary is not sufficient. A full 32 bit range is needed
-    loop
-    CR 
-;
+\ : show_rule_cells 
+\     rule_cells_length 0
+\     do 
+\         rule_cells I cells + @ .                 \ note. c@ or c! is not used here as 8 bit binary is not sufficient. A full 32 bit range is needed
+\     loop
+\     CR 
+\ ;
 
-: check_in_rule_cells
-    array_pos @                             \ copies current value of array_pos so it can be reset at the end
-    swap
-    0 array_pos !
-    dup
-    rule_cells array_pos @ cells + @ - 0=         \ checks if inputted value is equal to value at array_pos in rule_cells
-    array_pos @ 1 + array_pos !             \ increments array_pos
-    begin
-        1 pick                              \ duplicates inputted value
-        rule_cells array_pos @ cells + @ - 0=
-        or
-        array_pos @ 1 + array_pos !
+\ : check_in_rule_cells
+\     array_pos @                             \ copies current value of array_pos so it can be reset at the end
+\     swap
+\     0 array_pos !
+\     dup
+\     rule_cells array_pos @ cells + @ - 0=         \ checks if inputted value is equal to value at array_pos in rule_cells
+\     array_pos @ 1 + array_pos !             \ increments array_pos
+\     begin
+\         1 pick                              \ duplicates inputted value
+\         rule_cells array_pos @ cells + @ - 0=
+\         or
+\         array_pos @ 1 + array_pos !
 
-        array_pos @ rule_cells_length 1 - - 0=
-    until
-    swap
-    drop
-    swap array_pos !                        \ resets array_pos to its initial value before this word started
-;
+\         array_pos @ rule_cells_length 1 - - 0=
+\     until
+\     swap
+\     drop
+\     swap array_pos !                        \ resets array_pos to its initial value before this word started
+\ ;
 
-: fill_rule_cells
-    synchronicity 100 - 0=
-    if
-        array_size 0
-        do
-            I rule_cells I cells + !                             \ populates array with every possible index
-        loop
-    else
-        0 array_pos !                                       \ serves as an array length counter
-        begin 
-            array_size RND                                  \ n RND gives number in range 0 to n-1
-            random_cell !
-            random_cell @ check_in_rule_cells
-            if
-            else
-                random_cell @ rule_cells array_pos @ cells + !
-                array_pos @ 1 + array_pos !                 \ increments array length counter
-            then 
-            array_pos @ rule_cells_length 1 - >=
-        until
-    then
-;
+\ : fill_rule_cells
+\     synchronicity 100 - 0=
+\     if
+\         array_size 0
+\         do
+\             I rule_cells I cells + !                             \ populates array with every possible index
+\         loop
+\     else
+\         0 array_pos !                                       \ serves as an array length counter
+\         begin 
+\             array_size RND                                  \ n RND gives number in range 0 to n-1
+\             random_cell !
+\             random_cell @ check_in_rule_cells
+\             if
+\             else
+\                 random_cell @ rule_cells array_pos @ cells + !
+\                 array_pos @ 1 + array_pos !                 \ increments array length counter
+\             then 
+\             array_pos @ rule_cells_length 1 - >=
+\         until
+\     then
+\ ;
 
-: convert_to_1d_index       \ takes coordinates (x,y) and returns corresponding 1d array index. 
-    array_x_dim * +
-;
+\ : convert_to_1d_index       \ takes coordinates (x,y) and returns corresponding 1d array index. 
+\     array_x_dim * +
+\ ;
 
 { ---------------------------------Cell Code--------------------------------- }
 
@@ -308,9 +308,10 @@ variable activity
 
 
 : apply_rule                                        \ applies rules on cell (x,y) using value of neighbor_sum
-    1 pick 1 pick                                   \ duplicates coords
-    convert_to_1d_index                             \ converts 2d coordinates to 1d index to check if a rule is meant to be applied
-    check_in_rule_cells                             \ checks to see if rules will be applied to current cell
+    \ 1 pick 1 pick                                   \ duplicates coords
+    \ convert_to_1d_index                             \ converts 2d coordinates to 1d index to check if a rule is meant to be applied
+    \ check_in_rule_cells                             \ checks to see if rules will be applied to current cell
+    101 RND synchronicity <=                          \ selects random number in range 100 if < synchronicity percentage, applies life rule to cell. I.e. synchronicity percentage probability of rule being applied. 
     if
         1 pick 1 pick array_@ alive_num @ - 0=      \ duplicates coordinates. Checks if cell at position is alive
         if                                          \ code for living cells
