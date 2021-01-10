@@ -24,41 +24,41 @@ variable Test_Var_7
 
  {  DUP Font-Handle @ SelectObject drop  \ set font type here }
 
-   DUP ( hdc)  10  20 S" Iteration number       "      TextOut DROP  { Write titles to window }
-   DUP ( hdc)  140 20 S"                 "      TextOut DROP
+   DUP ( hdc)  10  20 S" Iteration number       "        TextOut DROP  { Write titles to window }
+   DUP ( hdc)  140 20 S"                 "               TextOut DROP
    DUP ( hdc)  L-Spaces iteration @ (.) 
                swap drop - Char-Pixels *
-               100 + 20 iteration @ (.)        TextOut DROP
+               100 + 20 iteration @ (.)                  TextOut DROP
 
-   DUP ( hdc)  10  40 S" Total alive       "      TextOut DROP
-   DUP ( hdc)  140 40 S"                 "      TextOut DROP
+   DUP ( hdc)  10  40 S" Total alive       "             TextOut DROP
+   DUP ( hdc)  140 40 S"                 "               TextOut DROP
    DUP ( hdc)  L-Spaces total_alive @ (.)
                swap drop - Char-Pixels *
-               100 + 40 total_alive @ (.)        TextOut DROP
+               100 + 40 total_alive @ (.)                TextOut DROP
 
-   DUP ( hdc)  10  60 S" Total dead       "      TextOut DROP
-   DUP ( hdc)  140 60 S"                 "      TextOut DROP
+   DUP ( hdc)  10  60 S" Total dead       "              TextOut DROP
+   DUP ( hdc)  140 60 S"                 "               TextOut DROP
    DUP ( hdc)  L-Spaces total_dead @   (.)
                swap drop - Char-Pixels *
-               100 + 60 total_dead @   (.)      TextOut DROP
+               100 + 60 total_dead @   (.)               TextOut DROP
 
-   DUP ( hdc)  10  80 S" Born this generation       "      TextOut DROP
-   DUP ( hdc)  140 80 S"                 "      TextOut DROP
+   DUP ( hdc)  10  80 S" Born this generation       "    TextOut DROP
+   DUP ( hdc)  140 80 S"                 "               TextOut DROP
    DUP ( hdc)  L-Spaces born @    (.)
                swap drop - Char-Pixels *
-               100 + 80 born @    (.)     TextOut DROP
+               100 + 80 born @    (.)                    TextOut DROP
 
-   DUP ( hdc)  10 100 S" Died this generation       "      TextOut DROP
-   DUP ( hdc)  140 100 S"                "      TextOut DROP
+   DUP ( hdc)  10 100 S" Died this generation       "    TextOut DROP
+   DUP ( hdc)  140 100 S"                "               TextOut DROP
    DUP ( hdc)  L-Spaces died @ (.)
                swap drop - Char-Pixels *
-               100 + 100 died @ (.)       TextOut DROP
+               100 + 100 died @ (.)                      TextOut DROP
 
-   DUP ( hdc)  10 100 S" Activity * 100000       "      TextOut DROP
-   DUP ( hdc)  140 120 S"                "      TextOut DROP
+   DUP ( hdc)  10 100 S" Activity * 100000       "       TextOut DROP
+   DUP ( hdc)  140 120 S"                "               TextOut DROP
    DUP ( hdc)  L-Spaces activity @ (.)
                swap drop - Char-Pixels *
-               100 + 100 activity @ (.)       TextOut DROP 
+               100 + 100 activity @ (.)                  TextOut DROP 
    
    DROP
    ;

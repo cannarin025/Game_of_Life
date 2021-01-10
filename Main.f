@@ -1,7 +1,7 @@
 { Array parameters}
 
-5 constant array_x_dim
-5 constant array_y_dim
+100 constant array_x_dim
+100 constant array_y_dim
 
 { Array synchronicity as percentage}
 100 constant synchronicity 

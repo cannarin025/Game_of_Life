@@ -18,33 +18,39 @@
 : play_life                           { Draw bmp to screen at variable pixel size       }
   clear_stack
   Make_Sim_File
-  cr ." Starting stretch to window test " 
+  cr ." Starting simulation " 
   cr
   0 iteration !
   0 total_alive_last !
   begin                               { Begin update / display loop                     }
   Show
   100 ms                              { Delay for viewing ease, reduce for higher speed }
-  update_game_unwrapped               { Run next iteration of life}
+  reset_rule_cells                    { resets so current values don't impact next      }
+  fill_rule_cells                     { gets new random cells to apply rules to         }
+  update_game_unwrapped               { Run next iteration of life                      }
   Write_Sim_Data
   key?                                { Break test loop on key press                    }
   until
   End_Sim_File 
+  cr ." Done! "
   ;
 
 : play_life_wrapped
   clear_stack
   Make_Sim_File
-  cr ." Starting stretch to window test " 
+  cr ." Starting simulation " 
   cr
   0 iteration !
   0 total_alive_last !
   begin                               { Begin update / display loop                     }
   Show
   100 ms                              { Delay for viewing ease, reduce for higher speed }
-  update_game_wrapped                 { Run next iteration of life}
+  reset_rule_cells                    { resets so current values don't impact next      }
+  fill_rule_cells                     { gets new random cells to apply rules to         }
+  update_game_wrapped                 { Run next iteration of life                      }
   Write_Sim_Data
   key?                                { Break test loop on key press                    }
   until 
   End_Sim_File
+  cr ." Done! " 
 ;
