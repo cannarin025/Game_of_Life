@@ -9,6 +9,10 @@
 { Time delay between Game of Life iterations in ms}
 1 constant iteration_delay
 
+{ Max number of iterations game will run for}
+variable max_iterations
+100 max_iterations !     \ This is the max number of iterations that run_test will run for. play_life is unaffected.
+
 Include src/Rnd.f
 Include src/Utilities.f
 Include src/Ruleset.f

@@ -4,8 +4,13 @@ Warning: Before playing life, please open /src/Graphics_V6_Single_Scaled_BMP_Win
 
 To play life please run Main.f.
 
-    Note: The size of the array can be edited by changing the values of the constants at the top of Main.f
-    Note: The rules of the Game of Life can be varied by editing the values for S and B in the relevant place in Ruleset.f. Please supply values in the range <None> to 8.
+    Adjustable parameters:
+        - The size of the array can be edited by changing the values of the constants at the top of Main.f
+        - The rules of the Game of Life can be varied by editing the values for S and B in the relevant place in Ruleset.f. Please supply values in the range <None> to 8.
+        - The synchronicity of the Game of Life i.e. the probability any cell will have rules applied each iteration can be varied in Main.f
+            - Synchronicity investigations should be conducted using periodic boundary conditions i.e. wrapped edges.
+        - The max number of iterations that the game will run for can be varied by editing the value of max_iterations in main.f.
+            - Note the max number of iterations only applies when the word run_test is used to play life.
 
     If any issues are encountered, please force-restart SwiftForth
 

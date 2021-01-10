@@ -54,3 +54,30 @@
   End_Sim_File
   cr ." Done! " 
 ;
+
+: run_test
+  clear_stack
+  Make_Sim_File
+  cr ." Starting simulation " 
+  cr
+  0 iteration !
+  0 total_alive_last !
+  begin                               { Begin update / display loop                     }
+  Show
+  iteration_delay ms                  { Delay for viewing ease, reduce for higher speed }
+  \ reset_rule_cells                    { resets so current values don't impact next      }
+  \ fill_rule_cells                     { gets new random cells to apply rules to         }
+  update_game_wrapped                 { Run next iteration of life                      }
+  Write_Sim_Data
+  key?                                { Break loop on key press                         }
+  iteration @ max_iterations >= 0=    { Break loop if max_iterations has been reached   }
+  or
+  until 
+  End_Sim_File
+  cr ." Done! " 
+  iteration @ max_iterations >=
+  if
+  cr ." Max iterations reached!"
+  cr
+  then
+;
