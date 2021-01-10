@@ -46,7 +46,7 @@ variable board-file-id                            { Create variable to store fil
 
 : write-file-header 
   s"   Conway's Game of Life Data " test-file-id @ write-line drop                                                            { Writes single lines of text to a file }
-  s"   Format: Iteration number, total number of living cells, total number of dead cells, cells born this generation, no of cells that died this generation, activity " test-file-id @ write-line drop    { terminating each line with a LF/CR.   }
+  s"   Format: Iteration number, total number of living cells, total number of dead cells, cells born this generation, no of cells that died this generation, activity * 100000 " test-file-id @ write-line drop    { terminating each line with a LF/CR.   }
   s"                      " test-file-id @ write-line drop                                                                    { first.                                }
  ;
 

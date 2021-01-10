@@ -1,8 +1,15 @@
 { Array parameters}
 
-500 constant array_x_dim
-500 constant array_y_dim
+600 constant array_x_dim
+600 constant array_y_dim
 
+{ Array synchronicity as percentage}
+85 constant synchronicity 
+
+{ Time delay between Game of Life iterations in ms}
+1 constant iteration_delay
+
+Include src/Rnd.f
 Include src/Utilities.f
 Include src/Ruleset.f
 Include src/Conways_Life.f
