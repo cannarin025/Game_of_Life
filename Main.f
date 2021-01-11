@@ -4,7 +4,8 @@
 600 constant array_y_dim
 
 { Array synchronicity as percentage}
-85 constant synchronicity 
+variable synchronicity
+10 synchronicity ! 
 
 { Time delay between Game of Life iterations in ms}
 1 constant iteration_delay

@@ -70,7 +70,7 @@
   update_game_wrapped                 { Run next iteration of life                      }
   Write_Sim_Data
   key?                                { Break loop on key press                         }
-  iteration @ max_iterations >= 0=    { Break loop if max_iterations has been reached   }
+  iteration @ max_iterations >=       { Break loop if max_iterations has been reached   }
   or
   until 
   End_Sim_File

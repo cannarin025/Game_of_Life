@@ -311,7 +311,7 @@ variable activity
     \ 1 pick 1 pick                                   \ duplicates coords
     \ convert_to_1d_index                             \ converts 2d coordinates to 1d index to check if a rule is meant to be applied
     \ check_in_rule_cells                             \ checks to see if rules will be applied to current cell
-    101 RND synchronicity <=                          \ selects random number in range 100 if < synchronicity percentage, applies life rule to cell. I.e. synchronicity percentage probability of rule being applied. 
+    101 RND synchronicity @ <=                          \ selects random number in range 100 if < synchronicity percentage, applies life rule to cell. I.e. synchronicity percentage probability of rule being applied. 
     if
         1 pick 1 pick array_@ alive_num @ - 0=      \ duplicates coordinates. Checks if cell at position is alive
         if                                          \ code for living cells
