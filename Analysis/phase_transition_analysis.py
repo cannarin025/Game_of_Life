@@ -16,7 +16,7 @@ for synchronicity in range(10, 101, 10):
         file_path = data_path + f"life_data_{i}_synch{synchronicity}.csv"
         data = np.loadtxt(file_path, delimiter=",", skiprows=3, unpack=True, max_rows= max_iterations)
         activity_data = np.absolute(data[5])/100000
-        sum_array = activity_data[9000:]
+        sum_array = activity_data[max_iterations - 1000:]
         avg_activity = sum_array.sum() #average of activities between specified indexes (to get avg steady state activity)
         repetitions_total += avg_activity
 
