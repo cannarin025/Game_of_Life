@@ -21,13 +21,13 @@ variable board-file-id                            { Create variable to store fil
 
 
 : make-test-file                                  { Create a test file to read / write to  }
-  s" C:\Users\canna\Documents\Code\Projects\Conways_Life\Data\life_data_synch98.csv" r/w create-file drop  { Create the file                        } 
+  s" C:\Users\canna\Documents\Code\Projects\Conways_Life\Data\life_data.csv" r/w create-file drop  { Create the file                        } 
   test-file-id !                                  { Store file handle for later use        }
 ;
 
  
 : open-test-file                                  { Open the file for read/write access    }
-  s" C:\Users\canna\Documents\Code\Projects\Conways_Life\Data\life_data_sych98.csv" r/w open-file drop    { Not needed if we have just created     }
+  s" C:\Users\canna\Documents\Code\Projects\Conways_Life\Data\life_data.csv" r/w open-file drop    { Not needed if we have just created     }
   test-file-id !                                  { file.                                  }
 ;
 
@@ -128,5 +128,5 @@ variable board-file-id                            { Create variable to store fil
   Write-blank-data
   test-file-size cr cr ." File End Size =   " d. cr cr
   close-test-file
-  ." Ascii data file written to .\Data\life_data.csv " cr cr
+  ." Ascii data file written to .\Data\" cr cr
 ;

@@ -5,7 +5,7 @@
 
 { Array synchronicity as percentage}
 variable synchronicity
-20 synchronicity ! 
+10000 synchronicity !      \ Sycnronicity 10000 represents 100.00% to allow for 2 decimal place precision
 
 { Time delay between Game of Life iterations in ms}
 1 constant iteration_delay
