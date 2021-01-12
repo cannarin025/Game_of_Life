@@ -5,7 +5,7 @@ max_iterations = 30000
 use_last = 1000 #uses last n iterations
 
 min_synch = 10
-max_synch = 10
+max_synch = 90
 
 data_path = f"..\\Data\\max_iter_{max_iterations}\\"
 

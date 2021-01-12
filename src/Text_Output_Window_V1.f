@@ -59,6 +59,12 @@ variable Test_Var_7
    DUP ( hdc)  L-Spaces activity @ (.)
                swap drop - Char-Pixels *
                100 + 120 activity @ (.)                  TextOut DROP 
+
+   DUP ( hdc)  10 140 S" Synchronicity       "       TextOut DROP
+   DUP ( hdc)  140 140 S"                "               TextOut DROP
+   DUP ( hdc)  L-Spaces synchronicity @ (.)
+               swap drop - Char-Pixels *
+               100 + 140 synchronicity @ (.)                  TextOut DROP 
    
    DROP
    ;
